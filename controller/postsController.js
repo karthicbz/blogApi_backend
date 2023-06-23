@@ -8,6 +8,11 @@ exports.all_posts_get = asynchandler(async (req, res) => {
   res.render("posts", { posts: allPosts });
 });
 
+exports.single_post_get = asynchandler(async(req, res)=>{
+  const getPost = await Posts.findById(req.params.id).exec();
+  res.render('view_post', {post:getPost});
+})
+
 exports.posts_create_get = asynchandler(async (req, res) => {
   res.render("create_post", {
     returnedTitle: "",
@@ -23,8 +28,7 @@ exports.posts_create_post = [
     .escape(),
   body("posttext", "Post must be alteast 160 characters length")
     .trim()
-    .isLength({ min: 120 })
-    .escape(),
+    .isLength({ min: 120 }),
   asynchandler(async (req, res) => {
     const errors = validationResult(req);
     const getOwner = await Owner.findOne().exec();
@@ -44,13 +48,16 @@ exports.posts_create_post = [
         errors: errors.errors,
       });
     } else {
-      await newPost.save();
-      res.redirect("/blog/owner/posts");
+      const post = await newPost.save();
+      res.redirect(post.url);
     }
   }),
 ];
 
-exports.posts_update_get = asynchandler(async (req, res) => {});
+exports.posts_update_get = asynchandler(async (req, res) => {
+  const post = await Posts.findById(req.params.id).exec();
+  res.render('create_post', {returnedTitle:post.title, returnedText:post.text, errors:''});
+});
 
 exports.posts_update_post = asynchandler(async (req, res) => {});
 

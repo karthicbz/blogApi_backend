@@ -10,9 +10,13 @@ router.get("/owner/posts/logout", OwnerController.owner_logout);
 
 router.get("/owner/posts", isAuthenticated, PostsController.all_posts_get);
 
-router.get("/owner/posts/new", PostsController.posts_create_get);
+router.get("/owner/posts/new", isAuthenticated, PostsController.posts_create_get);
 
-router.post("/owner/posts/new", PostsController.posts_create_post);
+router.post("/owner/posts/new", isAuthenticated, PostsController.posts_create_post);
+
+router.get("/owner/posts/:id/edit", isAuthenticated, PostsController.posts_update_get);
+
+router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get);
 
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
