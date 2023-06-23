@@ -5,10 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const Owner = require("./models/owner");
 const catalogRouter = require("./routes/catalog");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const asynchandler = require("express-async-handler");
 

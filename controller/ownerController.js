@@ -53,17 +53,6 @@ exports.owner_logout = asynchandler(async (req, res) => {
 });
 
 exports.owner_all_posts = asynchandler(async (req, res) => {
-  res.send("All posts page not implemented");
+  //   res.send("All posts page not implemented");
+  res.render("posts");
 });
-
-exports.posts_create_get = asynchandler(async (req, res) => {});
-
-exports.posts_create_post = asynchandler(async (req, res) => {});
-
-exports.posts_update_get = asynchandler(async (req, res) => {});
-
-exports.posts_update_post = asynchandler(async (req, res) => {});
-
-exports.posts_delete_get = asynchandler(async (req, res) => {});
-
-exports.posts_delete_post = asynchandler(async (req, res) => {});
