@@ -10,6 +10,10 @@ router.get("/owner/posts/logout", OwnerController.owner_logout);
 
 router.get("/owner/posts", isAuthenticated, PostsController.all_posts_get);
 
+router.get("/owner/posts/new", PostsController.posts_create_get);
+
+router.post("/owner/posts/new", PostsController.posts_create_post);
+
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/trix@2.0.0/dist/trix.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="row" id="post-editor">
+      <form action="" class="col s12" method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="posttitle" id="posttitle" placeholder="What do you want to name?" required
+            <% if(returnedTitle !== ''){ %> 
+              value="<%=returnedTitle %>"" 
+            <%}%> 
+            />
+            <label for="posttitle">Post Title</label>
+          </div>
+          <div class="input-field col s12">
+            <input type="hidden" name="posttext" id="posttext" required
+            <% if(returnedText !== ''){ %> 
+              value="<%-returnedText%>" 
+            <% } %>
+            />
+            <trix-editor input="posttext" class="trix-content"></trix-editor>
+          </div>
+        </div>
+        <% if(errors !== ''){ %>
+          <ul style="padding-bottom: 1rem;">
+            <% errors.map(error=>{ %>
+              <li><%=error.msg%></li>
+            <%})%>
+          </ul>
+        <%}%>
+        <button type="submit" class="btn waves-effect blue lighten-1">
+          Save
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

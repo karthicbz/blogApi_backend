@@ -13,16 +13,8 @@
     <title>Document</title>
   </head>
   <body>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">PK's Blog</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#">New Post</a></li>
-          <li><a href="/blog/owner/posts/logout">Logout</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="row">
+    <%- include('partials/navbar') %>
+    <div class="row" id="post-filter-row">
       <div class="input-field col s12">
         <select>
           <option value="all">All Posts</option>
@@ -33,16 +25,24 @@
       </div>
     </div>
     <div class="row">
-      <% if(posts.length === 0){ %>
-      <h1>No Posts yet...</h1>
-      <% }else{ %>
-      <ul class="collection">
-        <% posts.map(post=>{ %>
-        <span class="title">post.title</span>
-        <p>post.textTeaser</p>
-        <p><span>Published On: </span>post.publishedOn</p>
-        <%})%> <%}%>
-      </ul>
+      <div class="col s12">
+        <% if(posts.length === 0){ %>
+        <h1>No Posts yet...</h1>
+        <% }else{ %>
+        <ul class="collection">
+          <% posts.map(post=>{ %>
+          <li style="padding: 0px 0px 10px 10px">
+            <span class="title">
+              <a href="<%=post.url%>"><h4><%=post.title%></h4></a>
+            </span>
+            <p><%- post.textTeaser %></p>
+            <p style="margin-top: 10px">
+              <span><b>Published On:</b> </span><%=post.formatedDateTime%>
+            </p>
+          </li>
+          <%})%> <%}%>
+        </ul>
+      </div>
     </div>
   </body>
   <script>

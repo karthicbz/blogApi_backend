@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -10,24 +10,32 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
-nav>.nav-wrapper>.brand-logo{
+nav > .nav-wrapper > .brand-logo {
   padding-left: 1rem;
 }
 
-#owner-login-form{
+#owner-login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 5rem;
 }
 
-#owner-login-form>div>.input-field{
+#owner-login-form > div > .input-field {
   width: unset;
 }
 
-#owner-login-form>div{
+#owner-login-form > div {
   margin-bottom: unset;
+}
+
+#post-filter-row {
+  margin-top: 1rem;
+}
+
+#post-editor {
+  margin-top: 1rem;
 }

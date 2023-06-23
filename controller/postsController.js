@@ -1,14 +1,54 @@
 const asynchandler = require("express-async-handler");
 const Posts = require("../models/posts");
+const Owner = require("../models/owner");
+const { body, validationResult } = require("express-validator");
 
 exports.all_posts_get = asynchandler(async (req, res) => {
   const allPosts = await Posts.find({}, "title text publishedOn").exec();
   res.render("posts", { posts: allPosts });
 });
 
-exports.posts_create_get = asynchandler(async (req, res) => {});
+exports.posts_create_get = asynchandler(async (req, res) => {
+  res.render("create_post", {
+    returnedTitle: "",
+    returnedText: "",
+    errors: "",
+  });
+});
 
-exports.posts_create_post = asynchandler(async (req, res) => {});
+exports.posts_create_post = [
+  body("posttitle", "Post name must be 3 characters length")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+  body("posttext", "Post must be alteast 160 characters length")
+    .trim()
+    .isLength({ min: 120 })
+    .escape(),
+  asynchandler(async (req, res) => {
+    const errors = validationResult(req);
+    const getOwner = await Owner.findOne().exec();
+    console.log(getOwner._id);
+    const newPost = new Posts({
+      title: req.body.posttitle,
+      text: req.body.posttext,
+      owner: getOwner._id,
+      published: false,
+      publishedOn: Date.now(),
+    });
+    if (!errors.isEmpty()) {
+      console.log(errors.errors[0].msg);
+      res.render("create_post", {
+        returnedTitle: req.body.posttitle,
+        returnedText: req.body.posttext,
+        errors: errors.errors,
+      });
+    } else {
+      await newPost.save();
+      res.redirect("/blog/owner/posts");
+    }
+  }),
+];
 
 exports.posts_update_get = asynchandler(async (req, res) => {});
 
