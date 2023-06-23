@@ -32,6 +32,18 @@
         <label>Currently Showing</label>
       </div>
     </div>
+    <div class="row">
+      <% if(posts.length === 0){ %>
+      <h1>No Posts yet...</h1>
+      <% }else{ %>
+      <ul class="collection">
+        <% posts.map(post=>{ %>
+        <span class="title">post.title</span>
+        <p>post.textTeaser</p>
+        <p><span>Published On: </span>post.publishedOn</p>
+        <%})%> <%}%>
+      </ul>
+    </div>
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {

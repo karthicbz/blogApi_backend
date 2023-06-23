@@ -54,5 +54,4 @@ exports.owner_logout = asynchandler(async (req, res) => {
 
 exports.owner_all_posts = asynchandler(async (req, res) => {
   //   res.send("All posts page not implemented");
-  res.render("posts");
 });
