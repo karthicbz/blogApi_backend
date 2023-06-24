@@ -92,7 +92,7 @@ exports.posts_update_post = [
 ];
 
 exports.posts_delete_get = asynchandler(async (req, res) => {
-  const post = await Posts.findByIdAndRemove(req.params.id).exec();
+  await Posts.findByIdAndRemove(req.params.id).exec();
   res.redirect('/blog/owner/posts');
 });
 
