@@ -7,8 +7,10 @@ const PostSchema = new Schema({
   text: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: "Owner", required: true },
   published: { type: Boolean, default: false, required: true },
-  publishedOn: { type: Date, default: Date.now },
-});
+  publishedOn: { type: Date, default: Date.now }},{
+    toObject:{virtuals:true},
+    toJSON:{virtuals:true},
+  });
 
 PostSchema.virtual("url").get(function () {
   return `/blog/owner/posts/${this._id}`;

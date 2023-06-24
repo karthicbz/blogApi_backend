@@ -8,7 +8,7 @@ require("dotenv").config();
 const catalogRouter = require("./routes/catalog");
 const passport = require("passport");
 const session = require("express-session");
-const asynchandler = require("express-async-handler");
+const cors = require('cors');
 
 mongoose.set("strictQuery", false);
 
@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

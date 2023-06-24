@@ -108,6 +108,6 @@ exports.post_unpublish = asynchandler(async(req, res)=>{
 });
 
 exports.get_published_posts = asynchandler(async(req, res)=>{
-  const post = await Posts.find({published:true}).exec();
+  const post = await Posts.find({published:true}).sort({publishedOn:1}).exec();
   res.json(post);
 });
