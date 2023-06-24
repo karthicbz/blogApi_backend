@@ -106,3 +106,8 @@ exports.post_unpublish = asynchandler(async(req, res)=>{
   const post = await Posts.findOneAndUpdate({_id:req.params.id}, {published:false}).exec();
   res.redirect(post.url);
 });
+
+exports.get_published_posts = asynchandler(async(req, res)=>{
+  const post = await Posts.find({published:true}).exec();
+  res.json(post);
+});

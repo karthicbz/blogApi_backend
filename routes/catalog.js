@@ -2,6 +2,8 @@ const router = require("express").Router();
 const OwnerController = require("../controller/ownerController");
 const PostsController = require("../controller/postsController");
 
+router.get("/posts", PostsController.get_published_posts);
+
 router.get("/owner", OwnerController.owner_show_login);
 
 router.post("/owner/login", OwnerController.owner_login);
