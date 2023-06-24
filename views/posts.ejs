@@ -31,7 +31,7 @@
         <% }else{ %>
         <ul class="collection">
           <% posts.map(post=>{ %>
-          <li style="padding: 0px 0px 10px 10px" class="collection-item">
+          <li class="collection-item" data-status="<%=post.published%>">
             <span class="title">
               <a href="<%=post.url%>"><h4><%=post.title%></h4></a>
             </span>
@@ -46,8 +46,36 @@
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      var elems = document.querySelectorAll("select");
-      var instances = M.FormSelect.init(elems, "input-field");
+      let elems = document.querySelectorAll("select");
+      let instances = M.FormSelect.init(elems, "input-field");
+      const elements = document.querySelectorAll('.dropdown-content');
+      const dropdown = document.querySelector('.select-wrapper>input');
+      const postCollection = document.querySelectorAll('.collection>li');
+      dropdown.addEventListener('click', ()=>{
+        const nodes = elements[0].childNodes;
+        nodes.forEach(node=>{
+          node.addEventListener('click', (e)=>{
+            // console.log(`${e.target.textContent}:${e.target.dataset.status}`);
+            postCollection.forEach(post=>{
+              post.removeAttribute('style');
+            })
+            if(e.target.textContent === 'Published Posts'){
+              postCollection.forEach(post=>{
+                if(post.dataset.status !== 'true'){
+                  post.setAttribute('style', 'display:none;');
+                }
+              })
+            }
+            if(e.target.textContent === 'Unpublished Posts'){
+              postCollection.forEach(post=>{
+                if(post.dataset.status !== 'false'){
+                  post.setAttribute('style', 'display:none');
+                }
+              })
+            }
+          })
+        });
+      })
     });
   </script>
 </html>

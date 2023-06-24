@@ -39,3 +39,7 @@ nav > .nav-wrapper > .brand-logo {
 #post-editor {
   margin-top: 1rem;
 }
+
+.collection>li{
+  padding: 0px 0px 10px 10px
+}

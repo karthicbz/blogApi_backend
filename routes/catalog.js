@@ -18,7 +18,11 @@ router.get("/owner/posts/:id/edit", isAuthenticated, PostsController.posts_updat
 
 router.post("/owner/posts/:id/edit", isAuthenticated, PostsController.posts_update_post);
 
-router.get("/Owner/posts/:id/delete", isAuthenticated, PostsController.posts_delete_get);
+router.get("/owner/posts/:id/delete", isAuthenticated, PostsController.posts_delete_get);
+
+router.get("/owner/posts/:id/publish", isAuthenticated, PostsController.post_publish);
+
+router.get("/owner/posts/:id/unpublish", isAuthenticated, PostsController.post_unpublish);
 
 router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get);
 
