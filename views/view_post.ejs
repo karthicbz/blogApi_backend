@@ -26,10 +26,13 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <!-- <button class="btn waves-effect blue lighten-1">Edit</button> -->
             <a href="/blog/owner/posts/<%=post._id%>/edit" class="btn waves-effect blue lighten-1">Edit</a>
-            <button class="btn waves-effect ">Publish</button>
-            <button class="btn waves-effect red lighten-1">Delete</button>
+            <% if(post.published === false) {%>
+                <a href="/blog/owner/posts/<%= post._id %>/publish" class="btn waves-effect">Publish</a>
+            <%} else {%>
+                <a href="/blog/owner/posts/<%= post._id %>/unpublish" class="btn waves-effect">Unpublish</a>
+            <%}%>
+            <a href="/blog/owner/posts/<%=post.id%>/delete" class="btn waves-effect red lighten-1">Delete</a>
         </div>
     </div>
 </body>

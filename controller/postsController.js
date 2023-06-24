@@ -32,7 +32,7 @@ exports.posts_create_post = [
   asynchandler(async (req, res) => {
     const errors = validationResult(req);
     const getOwner = await Owner.findOne().exec();
-    console.log(getOwner._id);
+    // console.log(getOwner._id);
     const newPost = new Posts({
       title: req.body.posttitle,
       text: req.body.posttext,
@@ -59,8 +59,41 @@ exports.posts_update_get = asynchandler(async (req, res) => {
   res.render('create_post', {returnedTitle:post.title, returnedText:post.text, errors:''});
 });
 
-exports.posts_update_post = asynchandler(async (req, res) => {});
+exports.posts_update_post = [
+  body("posttitle", "Post name must be 3 characters length")
+    .trim()
+    .isLength({ min: 3 })
+    .escape(),
+  body("posttext", "Post must be alteast 160 characters length")
+    .trim()
+    .isLength({ min: 120 }),
+  asynchandler(async (req, res) => {
+    const errors = validationResult(req);
+    const getOwner = await Owner.findOne().exec();
+    const updatePost = new Posts({
+      title: req.body.posttitle,
+      text: req.body.posttext,
+      owner: getOwner._id,
+      published:false,
+      publishedOn: Date.now(),
+      _id: req.params.id,
+    })
+    if(!errors.isEmpty()){
+      res.render('create_post', {
+        returnedTitle:req.body.posttitle,
+        returnedText:req.body.posttext,
+        errors:errors.errors,
+      });
+    }else{
+      const updatedPost = await Posts.findByIdAndUpdate(req.params.id, updatePost, {}).exec();
+      res.redirect(updatedPost.url);
+    }
+  })
+];
 
-exports.posts_delete_get = asynchandler(async (req, res) => {});
+exports.posts_delete_get = asynchandler(async (req, res) => {
+  const post = await Posts.findByIdAndRemove(req.params.id).exec();
+  res.redirect('/blog/owner/posts');
+});
 
 exports.posts_delete_post = asynchandler(async (req, res) => {});

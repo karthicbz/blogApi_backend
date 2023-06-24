@@ -16,6 +16,10 @@ router.post("/owner/posts/new", isAuthenticated, PostsController.posts_create_po
 
 router.get("/owner/posts/:id/edit", isAuthenticated, PostsController.posts_update_get);
 
+router.post("/owner/posts/:id/edit", isAuthenticated, PostsController.posts_update_post);
+
+router.get("/Owner/posts/:id/delete", isAuthenticated, PostsController.posts_delete_get);
+
 router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get);
 
 function isAuthenticated(req, res, next) {
