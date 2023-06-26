@@ -11,7 +11,12 @@ exports.all_posts_get = asynchandler(async (req, res) => {
 exports.single_post_get = asynchandler(async(req, res)=>{
   const getPost = await Posts.findById(req.params.id).exec();
   res.render('view_post', {post:getPost});
-})
+});
+
+exports.single_post_json = asynchandler(async(req, res)=>{
+  const getPost = await Posts.findById(req.params.id).exec();
+  res.json(getPost);
+});
 
 exports.posts_create_get = asynchandler(async (req, res) => {
   res.render("create_post", {
