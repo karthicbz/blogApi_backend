@@ -36,6 +36,10 @@ router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get)
 
 router.get("/posts/:id", PostsController.single_post_json);
 
+//all comments by postid
+router.get("/posts/:id/comments", CommentController.all_post_comments);
+
+//save new comment
 router.post("/posts/:id/comment/new", CommentController.comment_post);
 
 function isAuthenticated(req, res, next) {

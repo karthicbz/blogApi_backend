@@ -32,3 +32,8 @@ exports.comment_post = [
         }
     }),
 ];
+
+exports.all_post_comments = asynchandler(async(req, res)=>{
+    const allComments = await Comments.find({postid:req.params.id}).populate('user').sort({commentedOn:-1}).exec();
+    res.json(allComments);
+});
