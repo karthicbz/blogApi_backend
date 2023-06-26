@@ -2,6 +2,7 @@ const router = require("express").Router();
 const OwnerController = require("../controller/ownerController");
 const PostsController = require("../controller/postsController");
 const UserController = require("../controller/userController");
+const CommentController = require("../controller/CommentsController");
 
 router.get("/posts", PostsController.get_published_posts);
 
@@ -34,6 +35,8 @@ router.get("/owner/posts/:id/unpublish", isAuthenticated, PostsController.post_u
 router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get);
 
 router.get("/posts/:id", PostsController.single_post_json);
+
+router.post("/posts/:id/comment/new", CommentController.comment_post);
 
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {

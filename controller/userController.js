@@ -6,18 +6,19 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 exports.create_user_post = asynchandler(async(req, res)=>{
+    // console.log(req.body.email);
     bcrypt.hash(req.body.password, parseInt(process.env.SALT_ROUND))
-    .then((hash)=>{
+    .then(async (hash)=>{
         const newUser = new Users({
             email: req.body.email,
             username: req.body.username,
             password: hash,
         })
-        const isUserFound = Users.findOne({email:req.body.email}).exec();
+        const isUserFound = await Users.findOne({email:req.body.email}).exec();
         if(isUserFound){
             res.json({'message': 'Email id already found', 'status':'error'})
         }else{
-            const user = newUser.save();
+            const user = await newUser.save();
             const token = jwt.sign({userId: `${user._id}`}, process.env.JWT_SECRET);
             res.json({'message':`${token}`, 'status':'success'});
         }

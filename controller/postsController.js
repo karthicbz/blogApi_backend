@@ -46,7 +46,7 @@ exports.posts_create_post = [
       publishedOn: Date.now(),
     });
     if (!errors.isEmpty()) {
-      console.log(errors.errors[0].msg);
+      // console.log(errors.errors[0].msg);
       res.render("create_post", {
         returnedTitle: req.body.posttitle,
         returnedText: req.body.posttext,
