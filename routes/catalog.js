@@ -7,6 +7,8 @@ router.get("/posts", PostsController.get_published_posts);
 
 router.post("/posts/user/new", UserController.create_user_post);
 
+router.post("/posts/login/auth", UserController.check_auth);
+
 router.get("/owner", OwnerController.owner_show_login);
 
 router.post("/owner/login", OwnerController.owner_login);

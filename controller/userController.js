@@ -26,3 +26,18 @@ exports.create_user_post = asynchandler(async(req, res)=>{
         res.json({'message':`${err}`, 'status':'error'});
     })
 });
+
+exports.check_auth = asynchandler(async(req, res)=>{
+    const user = await Users.findOne({username:req.body.username}).exec();
+    if(user){
+        const result = await bcrypt.compare(req.body.password, user.password);
+        if(result === true){
+            const token = jwt.sign({userId: `${user._id}`}, process.env.JWT_SECRET);
+            res.json({'message':`${token}`, 'status':'success'});
+        }else{
+            res.json({'message':'Incorrect Password', 'status':'error'});
+        }
+    }else{
+        res.json({'message':'User not found', 'status':'error'});
+    }
+});
