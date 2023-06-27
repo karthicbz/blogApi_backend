@@ -1,6 +1,7 @@
 const asynchandler = require("express-async-handler");
 const Posts = require("../models/posts");
 const Owner = require("../models/owner");
+const Comments = require("../models/comments");
 const { body, validationResult } = require("express-validator");
 
 exports.all_posts_get = asynchandler(async (req, res) => {
@@ -8,9 +9,12 @@ exports.all_posts_get = asynchandler(async (req, res) => {
   res.render("posts", { posts: allPosts });
 });
 
+//this route get both posts and comments
 exports.single_post_get = asynchandler(async(req, res)=>{
   const getPost = await Posts.findById(req.params.id).exec();
-  res.render('view_post', {post:getPost});
+  const postComments = await Comments.find({postid:req.params.id}).populate('user', 'username').exec();
+  console.log(postComments);
+  res.render('view_post', {post:getPost, comments:postComments});
 });
 
 exports.single_post_json = asynchandler(async(req, res)=>{

@@ -10,30 +10,100 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Post</title>
 </head>
 <body>
     <%- include('partials/navbar') %>
     <div class="row">
         <div class="col s12">
-            <h3><%=post.title%></h3>
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#post">Post</a></li>
+                <li class="tab col s3"><a href="#comments">Comments</a></li>
+            </ul>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <%-post.text%>
+        <div id="post">
+            <div class="row">
+                <div class="col s12">
+                    <h3><%=post.title%></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <%-post.text%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <a href="/blog/owner/posts/<%=post._id%>/edit" class="btn waves-effect blue lighten-1">Edit</a>
+                    <% if(post.published === false) {%>
+                        <a href="/blog/owner/posts/<%= post._id %>/publish" class="btn waves-effect">Publish</a>
+                    <%} else {%>
+                        <a href="/blog/owner/posts/<%= post._id %>/unpublish" class="btn waves-effect">Unpublish</a>
+                    <%}%>
+                    <a href="/blog/owner/posts/<%=post._id%>/delete" class="btn waves-effect red lighten-1">Delete</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <a href="/blog/owner/posts/<%=post._id%>/edit" class="btn waves-effect blue lighten-1">Edit</a>
-            <% if(post.published === false) {%>
-                <a href="/blog/owner/posts/<%= post._id %>/publish" class="btn waves-effect">Publish</a>
-            <%} else {%>
-                <a href="/blog/owner/posts/<%= post._id %>/unpublish" class="btn waves-effect">Unpublish</a>
+        <div id="comments" class="row">
+            <div class="col s12">
+            <% if(comments.length > 0){ %>
+            <ul class="collection">
+                <% comments.map(comment=>{ %>
+                    <li class="collection-item">
+                        <span class="title"><b><%=comment.user.username%></b></span>
+                        <p><%=comment.comment%></p>
+                        <a href="#modal" class="waves-effect delete" id="<%=comment._id%>" data-postid="<%=post._id%>">
+                            <span class="material-symbols-outlined"
+                            style="color: #ee6e73;">
+                            delete
+                            </span>
+                        </a>
+                    </li>
+                <% }) %>
+            </ul>
+            <% }else{ %>
+                <ul class="collection">
+                    <li class="collection-item">
+                        <p>No comments found</p>
+                    </li>
+                </ul>
             <%}%>
-            <a href="/blog/owner/posts/<%=post.id%>/delete" class="btn waves-effect red lighten-1">Delete</a>
+            </div>
+        </div>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h5>Do you really want to delete this comment?</h5>
+            </div>
+            <div class="modal-footer">
+                <!-- /blog/owner/posts/post._id%>/comments/comment._id%>/delete -->
+                <a href="#" class="btn waves-effect">Delete</a>
+                <a href="#" class="btn waves-effect">Cancel</a>
+            </div>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const elem = document.querySelectorAll('.tabs');
+        let instance = M.Tabs.init(elem);
+
+        const modal = document.getElementById('modal');
+        const modalDeleteButton = document.querySelector('.modal-footer>a:nth-child(1)');
+        const modalCancelButton = document.querySelector('.modal-footer>a:nth-child(2)');
+        const comments = document.querySelectorAll('.collection>.collection-item>.delete');
+        comments.forEach(comment=>{
+            comment.addEventListener('click', (e)=>{
+                // console.log(e.target.parentNode.dataset.postid);
+                modalDeleteButton.setAttribute('href', `/blog/owner/posts/${e.target.parentNode.dataset.postid}/comments/${e.target.parentNode.id}/delete`);
+                // console.log(modalDeleteButton);
+                modal.style.display = 'block';
+            })
+        })
+
+        modalCancelButton.addEventListener('click', ()=>{
+            modal.style.display = 'none';
+        })
+    });
+</script>
 </html>
