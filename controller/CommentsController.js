@@ -42,3 +42,18 @@ exports.delete_comment_get = asynchandler(async(req, res)=>{
     const deleteComment = await Comments.findByIdAndRemove(req.params.commentId).exec();
     res.json({'message':'Comment deleted', 'status':'success'});
 });
+
+exports.update_comment_post = [
+    body('updatedComment', 'Unable to save updated comment')
+    .trim()
+    .escape(),
+    asynchandler(async(req, res)=>{
+        const commentFound = await Comments.findById(req.params.commentId).exec();
+        if(commentFound){
+            await Comments.findOneAndUpdate({_id:req.params.commentId}, {comment:req.body.updatedComment}).exec();
+            res.json({'message':'Comment Updated', 'status':'success'});
+        }else{
+            res.json({'message':'Comment not found', 'status':'error'});
+        }
+    }),
+];
