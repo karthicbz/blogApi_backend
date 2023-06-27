@@ -42,6 +42,9 @@ router.get("/posts/:id/comments", CommentController.all_post_comments);
 //save new comment
 router.post("/posts/:id/comment/new", CommentController.comment_post);
 
+//deletes user comment
+router.get("/posts/:postId/comments/:commentId/delete", CommentController.delete_comment_get);
+
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

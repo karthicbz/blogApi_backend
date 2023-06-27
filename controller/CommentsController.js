@@ -37,3 +37,8 @@ exports.all_post_comments = asynchandler(async(req, res)=>{
     const allComments = await Comments.find({postid:req.params.id}).populate('user').sort({commentedOn:-1}).exec();
     res.json(allComments);
 });
+
+exports.delete_comment_get = asynchandler(async(req, res)=>{
+    const deleteComment = await Comments.findByIdAndRemove(req.params.commentId).exec();
+    res.json({'message':'Comment deleted', 'status':'success'});
+});
