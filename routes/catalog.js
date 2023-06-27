@@ -48,6 +48,9 @@ router.get("/posts/:postId/comments/:commentId/delete", CommentController.delete
 //updated user comment
 router.post("/posts/comments/:commentId/update", CommentController.update_comment_post);
 
+//route for owner to delete comment
+router.get("/owner/posts/:postId/comments/:commentId/delete", CommentController.delete_comment_owner);
+
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

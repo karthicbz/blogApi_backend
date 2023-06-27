@@ -11,10 +11,11 @@ exports.all_posts_get = asynchandler(async (req, res) => {
 
 //this route get both posts and comments
 exports.single_post_get = asynchandler(async(req, res)=>{
-  const getPost = await Posts.findById(req.params.id).exec();
-  const postComments = await Comments.find({postid:req.params.id}).populate('user', 'username').exec();
-  console.log(postComments);
-  res.render('view_post', {post:getPost, comments:postComments});
+  const [posts, comments] = await Promise.all([
+    Posts.findById(req.params.id).exec(), 
+    Comments.find({postid:req.params.id}).populate('user', 'username').exec()
+  ]);
+  res.render('view_post', {post:posts, comments:comments});
 });
 
 exports.single_post_json = asynchandler(async(req, res)=>{
