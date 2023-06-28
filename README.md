@@ -15,6 +15,7 @@ live link [blog-backend](https://example.com)
 * User can delete the posts
 * User can view the comments for the posts
 * User can delete the comments, which actually update the comment as `[removed my admin]` and saves the deleted comment into other collection.
+* User can filter comments based on commenters
 
 ## Build with
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,express,mongodb,nodejs,postman,git)](https://skillicons.dev)
@@ -40,3 +41,6 @@ live link [blog-backend](https://example.com)
 
 ### Page shows a list of comments for the post
 ![screenshot shows a list of comments for the post](/assets//Screenshot%20from%202023-06-28%2011-42-17.png)
+
+### page shows a comments filtered by username
+![screenshot shows a list of comments filtered by username](/assets/Screenshot%20from%202023-06-28%2013-10-59.png)
