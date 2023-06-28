@@ -51,7 +51,7 @@
             <ul class="collection">
                 <% comments.map(comment=>{ %>
                     <li class="collection-item">
-                        <span class="title"><b><%=comment.user.username%></b></span>
+                        <span class="title"><a href="<%=comment.user.url%>"><%=comment.user.username%></a></span>
                         <p><%=comment.comment%></p>
                         <a href="#modal" class="waves-effect delete" id="<%=comment._id%>" data-postid="<%=post._id%>">
                             <span class="material-symbols-outlined"

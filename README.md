@@ -26,3 +26,17 @@ live link [blog-backend](https://example.com)
 * Type `npm run serverstart` to run compile and run the project
 
 ## Screenshot
+### Loginpage
+![Secrrenshot of a login page](/assets/Screenshot%20from%202023-06-28%2011-40-25.png)
+
+### Page shows all posts
+![screen of a page shows all posts](/assets/Screenshot%20from%202023-06-28%2011-40-45.png)
+
+### Page to create a new post
+![screenshot of a page use to create a new post](/assets/Screenshot%20from%202023-06-28%2011-41-01.png)
+
+### Page shows a detail of post
+![screenshot of a page shows a detail of a post](/assets/Screenshot%20from%202023-06-28%2011-41-20.png)
+
+### Page shows a list of comments for the post
+![screenshot shows a list of comments for the post](/assets//Screenshot%20from%202023-06-28%2011-42-17.png)

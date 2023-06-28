@@ -4,6 +4,7 @@ const {body, validationResult} = require('express-validator');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const Comments = require('../models/comments');
 
 exports.create_user_post = asynchandler(async(req, res)=>{
     // console.log(req.body.email);
@@ -42,3 +43,8 @@ exports.check_auth = asynchandler(async(req, res)=>{
         res.json({'message':'User not found', 'status':'error'});
     }
 });
+
+exports.user_comments_get = asynchandler(async(req, res)=>{
+    const comments = await Comments.find({user:req.params.id}).populate('user', '_id username').populate('postid').exec();
+    res.render('user_detail', {title: 'Hello', comments:comments});
+})

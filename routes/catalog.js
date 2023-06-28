@@ -34,6 +34,9 @@ router.get("/owner/posts/:id/unpublish", isAuthenticated, PostsController.post_u
 
 router.get("/owner/posts/:id", isAuthenticated, PostsController.single_post_get);
 
+//this will route to the view which will show user and all their comment details
+router.get("/owner/users/:id", isAuthenticated, UserController.user_comments_get);
+
 router.get("/posts/:id", PostsController.single_post_json);
 
 //all comments by postid

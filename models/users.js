@@ -7,4 +7,8 @@ const UserSchema = new Schema({
     password:{type:String, required:true, maxLength: 100},
 });
 
+UserSchema.virtual('url').get(function(){
+    return(`/blog/owner/users/${this._id}`);
+})
+
 module.exports = mangoose.model('User', UserSchema);
