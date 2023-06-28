@@ -43,3 +43,7 @@ nav > .nav-wrapper > .brand-logo {
 .collection>li{
   padding: 0px 0px 10px 10px
 }
+
+#nav-tabs{
+  padding: 0;
+}
