@@ -7,8 +7,8 @@ Welcome to the darkside of the project. This backend code follows a MVC pattern 
 
 I have used the module called [trix](https://github.com/basecamp/trix) for rich text editor which is based on `WYSIWYG` editor.
 
-live link [blog-backend](https://blogapi-1ei1.onrender.com)<br>
-live link to [blog-frontend](https://blogapi-1ei1.onrender.com)
+live link to [blog-backend](https://blogapi-1ei1.onrender.com)<br>
+live link to [blog-frontend](https://karthicbz.github.io/blog-frontend/)
 
 ## Features
 * User can make a post using rich text editor.
